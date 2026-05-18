@@ -31,6 +31,7 @@
 
       html {
         scroll-behavior: smooth;
+        scroll-padding-top: 96px;
       }
 
       body {
@@ -107,11 +108,31 @@
       }
 
       .nav-links a {
+        position: relative;
+        padding: 6px 0;
         transition: color 160ms ease;
       }
 
-      .nav-links a:hover {
+      .nav-links a:hover,
+      .nav-links a.is-active {
         color: var(--green-dark);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 -2px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--green-dark);
+        opacity: 0;
+        transform: scaleX(0.6);
+        transition: opacity 160ms ease, transform 160ms ease;
+      }
+
+      .nav-links a.is-active::after {
+        opacity: 1;
+        transform: scaleX(1);
       }
 
       .nav-action,
@@ -161,6 +182,7 @@
       .hero-media img {
         object-fit: cover;
         object-position: center 28%;
+        filter: brightness(0.78) contrast(1.06);
       }
 
       .hero::after {
@@ -168,8 +190,9 @@
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(90deg, rgba(7, 10, 8, 0.9) 0%, rgba(7, 10, 8, 0.72) 32%, rgba(7, 10, 8, 0.34) 64%, rgba(7, 10, 8, 0.14) 100%),
-          linear-gradient(0deg, rgba(7, 10, 8, 0.82) 0%, rgba(7, 10, 8, 0.36) 42%, rgba(7, 10, 8, 0.2) 100%);
+          radial-gradient(circle at 22% 58%, rgba(7, 10, 8, 0.82) 0%, rgba(7, 10, 8, 0.62) 34%, rgba(7, 10, 8, 0) 62%),
+          linear-gradient(90deg, rgba(7, 10, 8, 0.95) 0%, rgba(7, 10, 8, 0.8) 34%, rgba(7, 10, 8, 0.48) 66%, rgba(7, 10, 8, 0.26) 100%),
+          linear-gradient(0deg, rgba(7, 10, 8, 0.86) 0%, rgba(7, 10, 8, 0.42) 45%, rgba(7, 10, 8, 0.24) 100%);
       }
 
       .hero-content {
@@ -304,7 +327,7 @@
       }
 
       section[id] {
-        scroll-margin-top: 78px;
+        scroll-margin-top: 96px;
       }
 
       .container {
@@ -661,6 +684,26 @@
         border-color: var(--green);
       }
 
+      input[aria-invalid="true"],
+      select[aria-invalid="true"],
+      textarea[aria-invalid="true"] {
+        border-color: var(--coral);
+        background: #fff8f6;
+      }
+
+      input[aria-invalid="true"]:focus,
+      select[aria-invalid="true"]:focus,
+      textarea[aria-invalid="true"]:focus {
+        outline-color: rgba(239, 111, 83, 0.24);
+      }
+
+      .field-error {
+        min-height: 18px;
+        color: #b43a25;
+        font-size: 0.84rem;
+        font-weight: 800;
+      }
+
       .submit-button {
         color: #ffffff;
         background: var(--green-dark);
@@ -671,6 +714,10 @@
         margin: 0;
         color: var(--green-dark);
         font-weight: 800;
+      }
+
+      .form-note.is-error {
+        color: #b43a25;
       }
 
       footer {
@@ -751,8 +798,9 @@
 
         .hero::after {
           background:
-            linear-gradient(90deg, rgba(7, 10, 8, 0.94) 0%, rgba(7, 10, 8, 0.78) 48%, rgba(7, 10, 8, 0.42) 100%),
-            linear-gradient(0deg, rgba(7, 10, 8, 0.86) 0%, rgba(7, 10, 8, 0.4) 54%, rgba(7, 10, 8, 0.22) 100%);
+            radial-gradient(circle at 26% 58%, rgba(7, 10, 8, 0.88) 0%, rgba(7, 10, 8, 0.68) 40%, rgba(7, 10, 8, 0) 68%),
+            linear-gradient(90deg, rgba(7, 10, 8, 0.96) 0%, rgba(7, 10, 8, 0.82) 52%, rgba(7, 10, 8, 0.5) 100%),
+            linear-gradient(0deg, rgba(7, 10, 8, 0.88) 0%, rgba(7, 10, 8, 0.46) 54%, rgba(7, 10, 8, 0.26) 100%);
         }
 
         .hero-media img {
@@ -797,6 +845,93 @@
           width: 100%;
         }
       }
+
+      @media (max-width: 760px) {
+        html {
+          scroll-padding-top: 86px;
+        }
+
+        section[id] {
+          scroll-margin-top: 86px;
+        }
+
+        .comparison-wrap {
+          overflow: visible;
+          border: 0;
+          background: transparent;
+          box-shadow: none;
+        }
+
+        .comparison-wrap table,
+        .comparison-wrap thead,
+        .comparison-wrap tbody,
+        .comparison-wrap tr,
+        .comparison-wrap td {
+          display: block;
+          width: 100%;
+        }
+
+        .comparison-wrap table {
+          min-width: 0;
+          border-collapse: separate;
+        }
+
+        .comparison-wrap thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          white-space: nowrap;
+        }
+
+        .comparison-wrap tr {
+          margin-bottom: 14px;
+          padding: 18px;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          background: #ffffff;
+          box-shadow: 0 10px 24px rgba(17, 23, 19, 0.06);
+        }
+
+        .comparison-wrap tr:last-child {
+          margin-bottom: 0;
+        }
+
+        .comparison-wrap td {
+          display: grid;
+          grid-template-columns: minmax(112px, 0.38fr) minmax(0, 1fr);
+          gap: 12px;
+          padding: 10px 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .comparison-wrap td:last-child {
+          border-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        .comparison-wrap td::before {
+          content: attr(data-label);
+          color: var(--ink);
+          font-weight: 850;
+        }
+
+        .comparison-wrap td:first-child {
+          display: block;
+          padding-top: 0;
+          color: var(--ink);
+          font-size: 1.08rem;
+        }
+
+        .comparison-wrap td:first-child::before {
+          display: block;
+          margin-bottom: 2px;
+          color: var(--green-dark);
+          font-size: 0.78rem;
+          text-transform: uppercase;
+        }
+      }
     </style>
   </head>
   <body>
@@ -816,9 +951,9 @@
           <a href="#omadused">Omadused</a>
           <a href="#tootab">Kuidas töötab</a>
           <a href="#konkurendid">Konkurendid</a>
-          <a href="#telli">Telli</a>
+          <a href="#telli">Huviavaldus</a>
         </div>
-        <a class="nav-action" href="#telli">Eeltelli</a>
+        <a class="nav-action" href="#telli">Huviavaldus</a>
       </nav>
     </header>
 
@@ -835,7 +970,7 @@
             automaatselt kokku ja teeb säästmise eesmärgi iga päev nähtavaks.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#telli">Soovin MoneyJari</a>
+            <a class="button primary" href="#telli">Saada huviavaldus</a>
             <a class="button secondary" href="#konkurendid">Vaata võrdlust</a>
           </div>
           <div class="hero-proof" aria-label="MoneyJari peamised eelised">
@@ -1035,28 +1170,28 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>Tavaline kogumispurk</td>
-                  <td>Odav ja lihtne koht raha kogumiseks.</td>
-                  <td>Raha saab iga hetk välja võtta ja kogusumma pole nähtav.</td>
-                  <td class="moneyjar-cell">Loeb summa kokku ja aitab raha lukus hoida.</td>
+                  <td data-label="Lahendus">Tavaline kogumispurk</td>
+                  <td data-label="Mida pakub">Odav ja lihtne koht raha kogumiseks.</td>
+                  <td data-label="Nõrk koht">Raha saab iga hetk välja võtta ja kogusumma pole nähtav.</td>
+                  <td class="moneyjar-cell" data-label="MoneyJari eelis">Loeb summa kokku ja aitab raha lukus hoida.</td>
                 </tr>
                 <tr>
-                  <td>Mündiloenduriga purk</td>
-                  <td>Loeb automaatselt mündid kokku.</td>
-                  <td>Enamasti ei arvesta paberraha ega eesmärgi progressi.</td>
-                  <td class="moneyjar-cell">Toetab nii münte kui ka paberraha.</td>
+                  <td data-label="Lahendus">Mündiloenduriga purk</td>
+                  <td data-label="Mida pakub">Loeb automaatselt mündid kokku.</td>
+                  <td data-label="Nõrk koht">Enamasti ei arvesta paberraha ega eesmärgi progressi.</td>
+                  <td class="moneyjar-cell" data-label="MoneyJari eelis">Toetab nii münte kui ka paberraha.</td>
                 </tr>
                 <tr>
-                  <td>Panga säästuäpp</td>
-                  <td>Automaatne säästmine ja digitaalsed eesmärgid.</td>
-                  <td>Ei õpeta sularahaga ümber käimist ja pole alati lastele sobiv.</td>
-                  <td class="moneyjar-cell">Sobib füüsilise raha kogumiseks kodus.</td>
+                  <td data-label="Lahendus">Panga säästuäpp</td>
+                  <td data-label="Mida pakub">Automaatne säästmine ja digitaalsed eesmärgid.</td>
+                  <td data-label="Nõrk koht">Ei õpeta sularahaga ümber käimist ja pole alati lastele sobiv.</td>
+                  <td class="moneyjar-cell" data-label="MoneyJari eelis">Sobib füüsilise raha kogumiseks kodus.</td>
                 </tr>
                 <tr>
-                  <td>Lukuga rahakarp</td>
-                  <td>Hoiab raha eraldi ja raskemini kättesaadavana.</td>
-                  <td>Ei näita summat ega motiveeri progressiga.</td>
-                  <td class="moneyjar-cell">Ühendab lukustuse, loenduri ja eesmärgi.</td>
+                  <td data-label="Lahendus">Lukuga rahakarp</td>
+                  <td data-label="Mida pakub">Hoiab raha eraldi ja raskemini kättesaadavana.</td>
+                  <td data-label="Nõrk koht">Ei näita summat ega motiveeri progressiga.</td>
+                  <td class="moneyjar-cell" data-label="MoneyJari eelis">Ühendab lukustuse, loenduri ja eesmärgi.</td>
                 </tr>
               </tbody>
             </table>
@@ -1098,21 +1233,21 @@
         <div class="container">
           <div class="order-panel">
             <div class="order-copy">
-              <div class="section-kicker">Eeltellimus</div>
+              <div class="section-kicker">Huviavaldus</div>
               <h2>Too MoneyJar oma koju või klassi säästmise harjutamiseks.</h2>
               <p>
                 MoneyJar sobib kingituseks, lapse esimeseks rahaharjumuse tööriistaks
                 või kooliprojektiks, kus on vaja näidata, kuidas nutikas toode eristub
                 tavalistest kogumispurkidest.
               </p>
-              <ul class="check-list" aria-label="Tellimuse eelised">
+              <ul class="check-list" aria-label="Huviavalduse eelised">
                 <li>
                   <span class="check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none">
                       <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </span>
-                  Eeltellimuse huvi aitab otsustada tootmise kogust.
+                  Huviavaldus aitab otsustada tootmise kogust.
                 </li>
                 <li>
                   <span class="check" aria-hidden="true">
@@ -1138,28 +1273,33 @@
               </div>
             </div>
 
-            <form class="order-form" id="orderForm">
+            <form class="order-form" id="orderForm" novalidate>
               <label>
                 Nimi
-                <input name="name" autocomplete="name" placeholder="Sinu nimi" required>
+                <input id="name" name="name" autocomplete="name" placeholder="Sinu nimi" required aria-describedby="nameError" aria-invalid="false">
+                <span class="field-error" id="nameError" aria-live="polite"></span>
               </label>
               <label>
                 E-post
-                <input name="email" type="email" autocomplete="email" placeholder="sina@example.com" required>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="sina@example.com" required aria-describedby="emailError" aria-invalid="false">
+                <span class="field-error" id="emailError" aria-live="polite"></span>
               </label>
               <label>
                 Kogus
-                <select name="quantity">
-                  <option>1 MoneyJar</option>
-                  <option>2 MoneyJari</option>
-                  <option>3 või rohkem</option>
+                <select id="quantity" name="quantity" required aria-describedby="quantityError" aria-invalid="false">
+                  <option value="">Vali kogus</option>
+                  <option value="1">1 MoneyJar</option>
+                  <option value="2">2 MoneyJari</option>
+                  <option value="3+">3 või rohkem</option>
                 </select>
+                <span class="field-error" id="quantityError" aria-live="polite"></span>
               </label>
               <label>
                 Sõnum
-                <textarea name="message" placeholder="Näiteks: soovin infot hinna ja tarne kohta"></textarea>
+                <textarea id="message" name="message" placeholder="Näiteks: soovin infot hinna ja tarne kohta" required aria-describedby="messageError" aria-invalid="false"></textarea>
+                <span class="field-error" id="messageError" aria-live="polite"></span>
               </label>
-              <button class="button submit-button" type="submit">Saada huvi</button>
+              <button class="button submit-button" type="submit">Saada huviavaldus</button>
               <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
             </form>
           </div>
@@ -1177,11 +1317,153 @@
     <script>
       const orderForm = document.querySelector("#orderForm");
       const formNote = document.querySelector("#formNote");
+      const requiredFields = [...orderForm.querySelectorAll("[required]")];
+      const errorText = {
+        name: "Palun sisesta nimi.",
+        email: "Palun sisesta korrektne e-posti aadress.",
+        quantity: "Palun vali kogus.",
+        message: "Palun kirjuta lühike sõnum."
+      };
+
+      const showFieldError = (field, message) => {
+        const errorNode = document.querySelector(`#${field.id}Error`);
+        field.setAttribute("aria-invalid", "true");
+
+        if (errorNode) {
+          errorNode.textContent = message;
+        }
+      };
+
+      const clearFieldError = (field) => {
+        const errorNode = document.querySelector(`#${field.id}Error`);
+        field.setAttribute("aria-invalid", "false");
+
+        if (errorNode) {
+          errorNode.textContent = "";
+        }
+      };
+
+      const validateField = (field) => {
+        if (field.validity.valueMissing) {
+          showFieldError(field, errorText[field.name]);
+          return false;
+        }
+
+        if (field.validity.typeMismatch) {
+          showFieldError(field, errorText[field.name]);
+          return false;
+        }
+
+        clearFieldError(field);
+        return true;
+      };
+
+      requiredFields.forEach((field) => {
+        field.addEventListener("blur", () => {
+          validateField(field);
+        });
+
+        field.addEventListener("input", () => {
+          if (field.getAttribute("aria-invalid") === "true") {
+            validateField(field);
+          }
+
+          formNote.classList.remove("is-error");
+          formNote.textContent = "";
+        });
+
+        field.addEventListener("change", () => {
+          if (field.getAttribute("aria-invalid") === "true") {
+            validateField(field);
+          }
+
+          formNote.classList.remove("is-error");
+          formNote.textContent = "";
+        });
+      });
 
       orderForm.addEventListener("submit", (event) => {
         event.preventDefault();
+
+        let firstInvalidField = null;
+
+        requiredFields.forEach((field) => {
+          const isValid = validateField(field);
+
+          if (!isValid && !firstInvalidField) {
+            firstInvalidField = field;
+          }
+        });
+
+        if (firstInvalidField) {
+          formNote.classList.add("is-error");
+          formNote.textContent = "Palun paranda vormis märgitud väljad.";
+          firstInvalidField.focus();
+          return;
+        }
+
+        formNote.classList.remove("is-error");
         formNote.textContent = "Aitäh! Sinu huvi on märgitud.";
         orderForm.reset();
+        requiredFields.forEach(clearFieldError);
+      });
+
+      const navLinks = [...document.querySelectorAll(".nav-links a")];
+      const navSections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      const setActiveNavLink = (id) => {
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${id}`;
+          link.classList.toggle("is-active", isActive);
+
+          if (isActive) {
+            link.setAttribute("aria-current", "true");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const navObserver = new IntersectionObserver(
+          (entries) => {
+            const activeEntry = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+            if (activeEntry) {
+              setActiveNavLink(activeEntry.target.id);
+            }
+          },
+          {
+            rootMargin: "-110px 0px -55% 0px",
+            threshold: [0.12, 0.32, 0.55]
+          }
+        );
+
+        navSections.forEach((section) => navObserver.observe(section));
+      } else {
+        window.addEventListener("scroll", () => {
+          const activeSection = [...navSections]
+            .reverse()
+            .find((section) => section.getBoundingClientRect().top <= 120);
+
+          if (activeSection) {
+            setActiveNavLink(activeSection.id);
+          }
+        });
+      }
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          const target = document.querySelector(link.getAttribute("href"));
+
+          if (target) {
+            setActiveNavLink(target.id);
+          }
+        });
       });
     </script>
   </body>
